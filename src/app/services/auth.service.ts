@@ -17,6 +17,11 @@ export class AuthService {
               });
   }
 
+  // check Auth
+  authUser(): boolean {
+    return this.authState !== null && this.authState !== undefined ? true : false;
+  }
+
   get currentUserId(): string {
     return this.authState !== null ? this.authState.uid : '';
   }
