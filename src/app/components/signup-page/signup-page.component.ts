@@ -17,7 +17,7 @@ export class SignupPageComponent implements OnInit {
     displayName: ''
   };
 
-  constructor() { }
+  constructor(private auth: AuthService) { }
 
   emailFormControl: FormControl = new FormControl('', [
     Validators.required,
@@ -31,6 +31,6 @@ export class SignupPageComponent implements OnInit {
   }
 
   createAccount() {
-
+    this.auth.signUp(this.usercreds);
   }
 }
