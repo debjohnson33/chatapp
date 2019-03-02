@@ -27,17 +27,18 @@ export class AuthService {
   }
 
   signUp(usercreds) {
-    return this.afauth.auth.createUserWithEmailAndPassword(usercreds.email, usercreds.password).then((user) => {
-      this.authState = user;
-      this.afauth.auth.currentUser.updateProfile({
-        displayName: usercreds.displayName,
-        photoURL: constants.PROFILE_PIC
-      }).then(() => {
-        this.setUserData(usercreds.email, usercreds.displayName, user.photoURL);
+    return this.afauth.auth.createUserWithEmailAndPassword(usercreds.email,
+      usercreds.password).then((user) => {
+        this.authState = user;
+        this.afauth.auth.currentUser.updateProfile({
+          displayName: usercreds.displayName,
+          photoURL: constants.PROFILE_PIC
+        }).then(() => {
+          this.setUserData(usercreds.email, usercreds.displayName, usercreds.photoURL);
+        });
       });
-    }
-    );
   }
+
 
   setUserData(email: string, displayName: string, photoURL: string) {
     const path = `users/${this.currentUserId}`;
