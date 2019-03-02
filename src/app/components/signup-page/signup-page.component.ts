@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
   selector: 'app-signup-page',
@@ -17,7 +18,7 @@ export class SignupPageComponent implements OnInit {
     displayName: ''
   };
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private router: Router) { }
 
   emailFormControl: FormControl = new FormControl('', [
     Validators.required,
@@ -33,4 +34,9 @@ export class SignupPageComponent implements OnInit {
   createAccount() {
     this.auth.signUp(this.usercreds);
   }
+
+  goBack() {
+    this.router.navigate(['login']);
+  }
+
 }
