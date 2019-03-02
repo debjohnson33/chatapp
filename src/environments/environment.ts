@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   config: {
-    apiKey: "AIzaSyDkSj7n0zD9HiHrhvus4QFgPU0LNgBrjCc",
-    authDomain: "chatapp-b2ddf.firebaseapp.com",
-    databaseURL: "https://chatapp-b2ddf.firebaseio.com",
-    projectId: "chatapp-b2ddf",
-    storageBucket: "chatapp-b2ddf.appspot.com",
-    messagingSenderId: "290491648812"
-  };
+    apiKey: 'AIzaSyDkSj7n0zD9HiHrhvus4QFgPU0LNgBrjCc',
+    authDomain: 'chatapp-b2ddf.firebaseapp.com',
+    databaseURL: 'https://chatapp-b2ddf.firebaseio.com',
+    projectId: 'chatapp-b2ddf',
+    storageBucket: 'chatapp-b2ddf.appspot.com',
+    messagingSenderId: '290491648812'
+  },
 };
 
 /*
