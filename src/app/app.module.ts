@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 
 // Components
@@ -15,6 +16,8 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 // firebaseconfig
 import {environment} from '../environments/environment';
 
+// Material
+import { MaterialdesignModule } from './materialdesign';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +27,11 @@ import {environment} from '../environments/environment';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    MaterialdesignModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.config),
+    AngularFireModule
   ],
   providers: [],
   bootstrap: [AppComponent]
