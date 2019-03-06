@@ -82,7 +82,7 @@ export class AuthService {
 
   // Logout function
   logout() {
-    this.afauth.auth.signOut().then(()=> {
+    this.afauth.auth.signOut().then(() => {
       this.router.navigate(['login']);
     })
     .catch((err) => {

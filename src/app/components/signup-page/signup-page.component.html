@@ -24,13 +24,13 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field class="input-width">
-    <input matInput placeholder="Password" [(ngModel)]="usercreds.password" type="password">
+    <input matInput placeholder="Password" [formControl]="passwordFormControl" type="password">
     <mat-error *ngIf="passwordFormControl.hasError('required')">
       Password is <strong>required</strong>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="input-width">
-    <input matInput placeholder="Nickname" [(ngModel)]="usercreds.displayName">
+    <input matInput placeholder="Nickname" [formControl]="nicknameFormControl">
   </mat-form-field>
     </mat-card-content>
     
