@@ -15,7 +15,7 @@
     </mat-card-subtitle>
     <mat-card-content>
       <mat-form-field class="input-width">
-    <input matInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="usercreds.email">
+    <input matInput placeholder="Email" [formControl]="emailFormControl" >
     <mat-error *ngIf="emailFormControl.hasError('pattern')">
       Please enter a valid email address
     </mat-error>
