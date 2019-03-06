@@ -29,6 +29,10 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  login() {
+    this.auth.login(this.usercreds);
+  }
+
   signup() {
     this.router.navigate(['signup']);
   }
