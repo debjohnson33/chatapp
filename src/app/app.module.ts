@@ -25,13 +25,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // Services
 import { AuthService } from './services/auth.service';
 import { AuthguardService } from './services/authguard.service';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     SignupPageComponent,
-    DashboardComponent
+    DashboardComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
