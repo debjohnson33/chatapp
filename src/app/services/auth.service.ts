@@ -69,6 +69,7 @@ export class AuthService {
       });
   }
 
+  // Sets user status
   setUserStatus(status) {
     const statuscollection = this.afs.doc(`status/${this.currentUserId}`);
     const data = {
@@ -76,6 +77,16 @@ export class AuthService {
     };
     statuscollection.update(data).catch((error) => {
       console.log(error);
+    });
+  }
+
+  // Logout function
+  logout() {
+    this.afauth.auth.signOut().then(()=> {
+      this.router.navigate(['login']);
+    })
+    .catch((err) => {
+      console.log(err);
     });
   }
 }
