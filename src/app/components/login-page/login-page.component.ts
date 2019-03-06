@@ -15,7 +15,7 @@ export class LoginPageComponent implements OnInit {
   usercreds = {
     email: '',
     password: ''
-  }
+  };
 
   constructor(private router: Router, private auth: AuthService) { }
 

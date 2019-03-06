@@ -62,7 +62,11 @@ export class AuthService {
       usercreds.password).then((user) => {
         this.authState = user;
         const status = 'online';
-      })
+        this.setUserStatus(status);
+        this.router.navigate(['dashboard']);
+      }).catch((error) => {
+        console.log(error);
+      });
   }
 
   setUserStatus(status) {
