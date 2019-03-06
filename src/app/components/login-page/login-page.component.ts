@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-page',
@@ -8,8 +10,20 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  usercreds = {
+    email: '',
+    password: ''
+  }
 
+  constructor(private router: Router, private auth: AuthService) { }
+
+    emailFormControl: FormControl = new FormControl('', [
+      Validators.required,
+      Validators.pattern(EMAIL_REGEX)
+    ]);
+    passwordFormControl: FormControl = new FormControl('', [
+      Validators.required
+    ]);
   ngOnInit() {
   }
 
