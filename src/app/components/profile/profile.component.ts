@@ -9,6 +9,9 @@ import { UserService } from '../../services/user.service';
 export class ProfileComponent implements OnInit {
 
   user;
+  nickNameedit = false;
+  newNickname: string;
+
   constructor(private userService: UserService) {
     this.userService.currentUser.subscribe((user) => {
       this.user = user;
@@ -18,8 +21,14 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
-  updateName() {
+  editName() {
+    this.nickNameedit = !this.nickNameedit;
+  }
 
+  updateName() {
+    this.userService.updateName(this.newNickname).then(() => {
+      this.editName();
+    });
   }
 
   chooseImage() {
