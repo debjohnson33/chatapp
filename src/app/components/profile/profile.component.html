@@ -1,3 +1,25 @@
-<p>
-  profile works!
-</p>
+<div fxLayout="row" fxLayoutAlign="center">
+  <div fxLayout="column" fxLayoutAlign="center">
+    
+  <img class="centered-and-cropped" src="{{user.photoURL}}" width="150" height="150" style="border-radius:50%">
+  <h3>Nickname: {{user.displayName}}</h3>
+  <div>
+  
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+    <mat-form-field *ngIf="nickNameedit">
+      <input matInput placeholder="Enter new nick name" [(ngModel)]="newNickname" type="text">
+    </mat-form-field>
+    <span matTooltip="Do it"><button *ngIf="nickNameedit" mat-icon-button (click)="updateName()">
+          <mat-icon color="primary">check</mat-icon>
+       </button></span>
+       <span matTooltip="Cancel"><button *ngIf="nickNameedit" mat-icon-button (click)="editName()">
+          <mat-icon color="warn">cancel</mat-icon>
+       </button></span>
+    <span matTooltip="Change your nickname" *ngIf="!nickNameedit"><button mat-mini-fab color="primary" (click)="editName()"><mat-icon>mode_edit</mat-icon></button>&nbsp;&nbsp;</span>
+    <span matTooltip="Change profile pic" *ngIf="!twitterUser"><button mat-mini-fab color="primary" (click)="fileInput.click()"><mat-icon>assignment_ind</mat-icon></button>&nbsp;&nbsp;</span>
+    <input #fileInput type="file" (change)="chooseImage($event)" style="display:none;" />
+    <mat-spinner *ngIf="spinnerToggle" [diameter]=17></mat-spinner>
+  </div>
+  
+  
