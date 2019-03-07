@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -17,7 +18,7 @@ export class LoginPageComponent implements OnInit {
     password: ''
   };
 
-  constructor(private router: Router, private auth: AuthService) { }
+  constructor(private router: Router, private auth: AuthService, private snackBar: MatSnackBar) { }
 
     emailFormControl: FormControl = new FormControl('', [
       Validators.required,
@@ -30,7 +31,15 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    this.auth.login(this.usercreds);
+    let response = this.auth.login(this.usercreds);
+    response.catch((err) => {
+      if (err.code === 'auth/user-not-found') {
+        this.snackBar.open('User not found', 'Close', { duration: 3000});
+      }
+      if (err.code === 'auth/wrong-password') {
+        this.snackBar.open('Wrong Password', 'Close', { duration: 3000});
+      }
+    });
   }
 
   signup() {
