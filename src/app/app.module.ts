@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -25,9 +28,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // Services
 import { AuthService } from './services/auth.service';
 import { AuthguardService } from './services/authguard.service';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ProfileComponent } from './components/profile/profile.component';
   ],
   providers: [
     AuthService,
-    AuthguardService
+    AuthguardService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
