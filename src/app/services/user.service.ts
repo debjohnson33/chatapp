@@ -57,4 +57,8 @@ export class UserService {
     });
   }
 
+  // Get all users
+  getAllUsers() {
+    return this.afs.collection('users').valueChanges();
+  }
 }
