@@ -59,6 +59,13 @@ export class UserService {
 
   // Get all users
   getAllUsers() {
-    return this.afs.collection('users').valueChanges();
+    return this.afs.collection('users').valueChanges().map((users) => {
+      users.forEach((element: any, i) => {
+        if (element.email === this.afauth.auth.currentUser.email) {
+          users.splice(i, 1);
+        }
+      });
+      return users;
+    });
   }
 }
