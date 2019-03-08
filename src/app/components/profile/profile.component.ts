@@ -18,6 +18,9 @@ export class ProfileComponent implements OnInit {
     this.userService.currentUser.subscribe((user) => {
       this.user = user;
     });
+    this.userService.spinnersub.subscribe((value) => {
+      this.spinnerToggle = value;
+    });
    }
 
   ngOnInit() {
