@@ -46,8 +46,15 @@ export class UserService {
           photoURL: downloadURL
         }).then(() => {
           this.spinnersub.next(false);
+          }).catch(() => {
+            this.spinnersub.next(false);
         });
+        }).catch(() => {
+        this.spinnersub.next(false);
       });
+    }).catch(() => {
+      this.spinnersub.next(false);
     });
   }
+
 }
