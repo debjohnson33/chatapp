@@ -19,7 +19,7 @@
     <span matTooltip="Change your nickname" *ngIf="!nickNameedit"><button mat-mini-fab color="primary" (click)="editName()"><mat-icon>mode_edit</mat-icon></button>&nbsp;&nbsp;</span>
     <span matTooltip="Change profile pic" *ngIf="!twitterUser"><button mat-mini-fab color="primary" (click)="fileInput.click()"><mat-icon>assignment_ind</mat-icon></button>&nbsp;&nbsp;</span>
     <input #fileInput type="file" (change)="chooseImage($event)" style="display:none;" />
-    <!-- <mat-spinner *ngIf="spinnerToggle" [diameter]=17></mat-spinner> -->
+    <mat-spinner *ngIf="spinnerToggle" [diameter]=17></mat-spinner>
   </div>
   
   

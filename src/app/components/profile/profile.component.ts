@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
   nickNameedit = false;
   newNickname: string;
   selectedFiles: FileList;
+  spinnerToggle = false;
 
   constructor(private userService: UserService) {
     this.userService.currentUser.subscribe((user) => {
