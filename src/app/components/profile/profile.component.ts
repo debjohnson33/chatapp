@@ -11,6 +11,7 @@ export class ProfileComponent implements OnInit {
   user;
   nickNameedit = false;
   newNickname: string;
+  selectedFiles: FileList;
 
   constructor(private userService: UserService) {
     this.userService.currentUser.subscribe((user) => {
@@ -32,7 +33,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  chooseImage() {
-
+  chooseImage(event) {
+    this.selectedFiles = event.target.files;
+    if (this.selectedFiles.item(0)) {
+      this.userService.updateProfilePic(this.selectedFiles.item(0));
+    }
   }
 }
