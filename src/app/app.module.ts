@@ -29,6 +29,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthService } from './services/auth.service';
 import { AuthguardService } from './services/authguard.service';
 import { UserService } from './services/user.service';
+import { AddfriendComponent } from './components/addfriend/addfriend.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UserService } from './services/user.service';
     DashboardComponent,
     NavBarComponent,
     SidebarComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddfriendComponent
   ],
   imports: [
     BrowserModule,
