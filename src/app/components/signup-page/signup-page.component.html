@@ -15,7 +15,7 @@
     </mat-card-subtitle>
     <mat-card-content>
       <mat-form-field class="input-width">
-    <input matInput placeholder="Email" [formControl]="emailFormControl" >
+    <input matInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="usercreds.email">
     <!-- <mat-error *ngIf="emailFormControl.hasError('pattern')">
       Please enter a valid email address
     </mat-error> -->
@@ -24,13 +24,13 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field class="input-width">
-    <input matInput placeholder="Password" [formControl]="passwordFormControl" type="password">
+    <input matInput placeholder="Password" [formControl]="passwordFormControl" [(ngModel)]="usercreds.password" type="password" >
     <mat-error *ngIf="passwordFormControl.hasError('required')">
       Password is <strong>required</strong>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="input-width">
-    <input matInput placeholder="Nickname" [formControl]="nicknameFormControl">
+    <input matInput placeholder="Nickname" [formControl]="nicknameFormControl" [(ngModel)]="usercreds.displayName">
   </mat-form-field>
     </mat-card-content>
     

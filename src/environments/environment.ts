@@ -5,12 +5,12 @@
 export const environment = {
   production: false,
   config: {
-    apiKey: 'AIzaSyDkSj7n0zD9HiHrhvus4QFgPU0LNgBrjCc',
-    authDomain: 'chatapp-b2ddf.firebaseapp.com',
-    databaseURL: 'https://chatapp-b2ddf.firebaseio.com',
-    projectId: 'chatapp-b2ddf',
-    storageBucket: 'chatapp-b2ddf.appspot.com',
-    messagingSenderId: '290491648812'
+    apiKey: 'AIzaSyAnDa0SjAzSQPnnO7mmlAp_ovRpj5lWbBY',
+    authDomain: 'chatapp-72a72.firebaseapp.com',
+    databaseURL: 'https://chatapp-72a72.firebaseio.com',
+    projectId: 'chatapp-72a72',
+    storageBucket: 'chatapp-72a72.appspot.com',
+    messagingSenderId: '810156742387'
   },
 };
 
