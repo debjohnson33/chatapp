@@ -29,8 +29,8 @@ export class RequestsService {
   // Accepting Requests
   acceptRequest(req) {
     return new Promise((resolve) => {
-      const query = this.friendsRef.where('email', '==', this.afauth.auth.currentUser.email);
-      const query2 = this.friendsRef.where('email', '==', req.email);
+      const query = this.afs.collection('friends', ref => ref.where('email', '==', this.afauth.auth.currentUser.email));
+      const query2 = this.afs.collection('friends', ref => ref.where('email', '==', req.email));
       query.get().then((snapShot) => {
         if (snapShot.empty) {
           this.friendsRef.add({
