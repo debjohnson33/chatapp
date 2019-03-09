@@ -13,6 +13,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AddfriendComponent } from './components/addfriend/addfriend.component';
+import { RequestsComponent } from './components/requests/requests.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -41,7 +42,8 @@ import { RequestsService } from './services/requests.service';
     NavBarComponent,
     SidebarComponent,
     ProfileComponent,
-    AddfriendComponent
+    AddfriendComponent,
+    RequestsComponent
   ],
   imports: [
     BrowserModule,
