@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material';
 })
 export class RequestsComponent implements OnInit {
 
+  requests;
+
   constructor(private requestsService: RequestsService,
               private userService: UserService,
               private snackBar: MatSnackBar) { }
