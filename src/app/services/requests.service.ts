@@ -10,5 +10,14 @@ import * as firebase from 'firebase';
 })
 export class RequestsService {
 
-  constructor() { }
+  constructor(private afs: AngularFirestore, private afauth: AngularFireAuth) { }
+
+  requestRef = this.afs.collection('requests');
+
+  addRequest(newrequest) {
+    return this.requestRef.add({
+      sender: this.afauth.auth.currentUser.email,
+      receiver: newrequest
+    });
+  }
 }
