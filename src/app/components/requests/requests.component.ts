@@ -16,7 +16,7 @@ export class RequestsComponent implements OnInit {
 
   ngOnInit() {
     this.requestsService.getMyRequests().subscribe((requests) => {
-      this.requests = this.userService.getAllUsers(requests);
+      this.requests = this.userService.getUsers(requests);
     });
   }
 
@@ -25,4 +25,11 @@ export class RequestsComponent implements OnInit {
       this.snackBar.open('Friend Added', 'Okay', {duration: 3000});
     });
   }
+
+  ignoreRequest(request) {
+    this.requestsService.deleteRequest(request).then(() => {
+      this.snackBar.open('Request Ignored', 'Okay', { duration: 3000 });
+    });
+  }
+
 }

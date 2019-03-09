@@ -68,4 +68,20 @@ export class UserService {
       return users;
     });
   }
+
+    // Get specific user profiles
+    getUsers(emails) {
+      const userProfiles = [];
+      const collRef = this.afs.collection('users').ref;
+      emails.forEach((element) => {
+        const query = collRef.where('email', '==', element.sender);
+        query.get().then((snapShot) => {
+          if (!snapShot.empty) {
+            userProfiles.push(snapShot.docs[0].data());
+          }
+        });
+      });
+      return userProfiles;
+    }
+
 }
