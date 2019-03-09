@@ -11,6 +11,8 @@ export class MyfriendsComponent implements OnInit {
 
   constructor(private friendService: FriendsService, private userService: UserService) { }
 
+  users;
+
   ngOnInit() {
     this.getData();
   }
@@ -19,12 +21,12 @@ export class MyfriendsComponent implements OnInit {
     this.friendService.getMyFriends().then((friends: any) => {
       friends.subscribe((isThere: any) => {
         if (isThere === 'Exists') {
-          this.friendService.getFriendList().subscribe((friends) => {
-            this.users = this.userService.getUserDetails(friends)
-          })
+          this.friendService.getFriendList().subscribe((mates) => {
+            this.users = this.userService.getUserDetails(mates);
+          });
         }
-      })
-    })
+      });
+    });
   }
 
 }
