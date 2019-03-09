@@ -4,13 +4,16 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { BehaviorSubject } from 'rxjs';
 import * as firebase from 'firebase';
+import { FriendsService } from './friends.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestsService {
 
-  constructor(private afs: AngularFirestore, private afauth: AngularFireAuth) { }
+  constructor(private afs: AngularFirestore,
+              private afauth: AngularFireAuth,
+              private friendsService: FriendsService) { }
 
   requestRef = this.afs.collection('requests');
   friendsRef = this.afs.collection('friends');
@@ -29,8 +32,8 @@ export class RequestsService {
   // Accepting Requests
   acceptRequest(req) {
     return new Promise((resolve) => {
-      const query = this.afs.collection('friends', ref => ref.where('email', '==', this.afauth.auth.currentUser.email));
-      const query2 = this.afs.collection('friends', ref => ref.where('email', '==', req.email));
+      const query = this.afs.collection('friends', ref => ref.where('email', '==', this.afauth.auth.currentUser.email)).ref;
+      const query2 = this.afs.collection('friends', ref => ref.where('email', '==', req.email)).ref;
       query.get().then((snapShot) => {
         if (snapShot.empty) {
           this.friendsRef.add({
