@@ -69,19 +69,34 @@ export class UserService {
     });
   }
 
-    // Get specific user profiles
-    getUsers(emails) {
-      const userProfiles = [];
-      const collRef = this.afs.collection('users').ref;
-      emails.forEach((element) => {
-        const query = collRef.where('email', '==', element.sender);
-        query.get().then((snapShot) => {
-          if (!snapShot.empty) {
-            userProfiles.push(snapShot.docs[0].data());
-          }
-        });
+  // Get specific user profiles
+  getUsers(emails) {
+    const userProfiles = [];
+    const collRef = this.afs.collection('users').ref;
+    emails.forEach((element) => {
+      const query = collRef.where('email', '==', element.sender);
+      query.get().then((snapShot) => {
+        if (!snapShot.empty) {
+          userProfiles.push(snapShot.docs[0].data());
+        }
       });
-      return userProfiles;
-    }
+    });
+    return userProfiles;
+  }
+
+  getUserDetails(users) {
+    const userProfiles = [];
+    const collRef = this.afs.collection('users').ref;
+    users.forEach((element) => {
+      const query = collRef.where('email', '==', element.email);
+      query.get().then((snapShot) => {
+        if (!snapShot.empty) {
+          userProfiles.push(snapShot.docs[0].data());
+        }
+      });
+    });
+    return userProfiles;
+  }
+  
 
 }
