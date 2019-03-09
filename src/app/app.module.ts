@@ -12,6 +12,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { AddfriendComponent } from './components/addfriend/addfriend.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -29,7 +30,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AuthService } from './services/auth.service';
 import { AuthguardService } from './services/authguard.service';
 import { UserService } from './services/user.service';
-import { AddfriendComponent } from './components/addfriend/addfriend.component';
+import { RequestsService } from './services/requests.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AddfriendComponent } from './components/addfriend/addfriend.component';
   providers: [
     AuthService,
     AuthguardService,
-    UserService
+    UserService,
+    RequestsService
   ],
   bootstrap: [AppComponent]
 })
