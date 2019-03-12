@@ -13,6 +13,7 @@ export class UserService {
 
   currentUser = new BehaviorSubject<firebase.User>(this.afauth.auth.currentUser);
   spinnersub = new BehaviorSubject<boolean>(false);
+  statusUpdate = new BehaviorSubject<string>('Nope');
 
   constructor(private afauth: AngularFireAuth, private afs: AngularFirestore, private storage: AngularFireStorage) {
     this.afauth.authState.subscribe((user) => {
@@ -86,17 +87,20 @@ export class UserService {
   }
 
   getUserDetails(users) {
-    const userProfiles = [];
-    const collRef = this.afs.collection('users').ref;
-    users.forEach((element) => {
-      const query = collRef.where('email', '==', element.email);
-      query.get().then((snapShot) => {
-        if (!snapShot.empty) {
-          userProfiles.push(snapShot.docs[0].data());
-        }
+    return new Promise((resolve) => {
+      const userProfiles = [];
+      const collRef = this.afs.collection('users').ref;
+      users.forEach((element) => {
+        const query = collRef.where('email', '==', element.email);
+        query.get().then((snapShot) => {
+          if (!snapShot.empty) {
+            userProfiles.push(snapShot.docs[0].data());
+          }
+        });
       });
+      return userProfiles;
     });
-    return userProfiles;
+
   }
 
   // Instant search for add friend component.
@@ -129,4 +133,14 @@ export class UserService {
       });
     });
   }
+
+  // Listen for status updates
+  updateStatuses() {
+    this.afs.collection('status').snapshotChanges(['modified']).subscribe((data) => {
+      if (data.length !== 0) {
+        this.statusUpdate.next('StatusUpdated');
+      }
+    });
+  }
+
 }
