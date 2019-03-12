@@ -112,6 +112,21 @@ export class UserService {
       }));
   }
 
+  // Returns statuses from the status collection for a list of users
+  getUserStatus(users) {
+    return new Promise((resolve) => {
+      const friendStatus = [];
+      const statusColl = this.afs.collection('status').ref;
 
-
+      users.map((element, i) => {
+        const queryRef = statusColl.where('email', '==', element.email);
+        queryRef.get().then((snapShot) => {
+          friendStatus.push(snapShot.docs[0].data());
+          if (i === users.length - 1) {
+            resolve(friendStatus);
+          }
+        });
+      });
+    });
+  }
 }
