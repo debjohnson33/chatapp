@@ -90,4 +90,10 @@ export class RequestsService {
       });
     }
 
+    // Get the sent reuests to filter out user list
+    getSentRequests() {
+      return this.afs.collection('requests', ref => ref
+      .where('sender', '==', this.afauth.auth.currentUser.email)).valueChanges();
+    }
+
 }
