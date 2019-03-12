@@ -2,5 +2,10 @@
   <mat-list-item *ngFor="let user of users; let i = index"> 
     <img matListAvatar src="{{user.photoURL}}">
     <h3 matLine>{{user.displayName}}</h3>
+    <p matLine>
+      <span class = "presence" [ngClass]=" {
+        'online': statuses[i].status == 'online',
+        'offline': statuses[i].status == 'offline'}"></span>
+    </p>
   </mat-list-item>
 </mat-list>
