@@ -99,5 +99,19 @@ export class UserService {
     return userProfiles;
   }
 
+  // Instant search for add friend component.
+  instantSearch(startValue, endValue) {
+    return this.afs.collection('users', ref => ref.orderBy('displayName').startAt(startValue)
+      .endAt(endValue)).valueChanges().pipe(map((users) => {
+        users.forEach((element: any, i) => {
+        if (element.email === this.afauth.auth.currentUser.email) {
+          users.splice(i, 1);
+        }
+      });
+        return users;
+      }));
+  }
+
+
 
 }
