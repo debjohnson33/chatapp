@@ -45,5 +45,10 @@ export class ChatFeedComponent implements OnInit {
   // Choose bubble style
   chooseClass(msg) {
     this.MyId = this.authService.currentUserDetails().email;
+    if (msg.sentby !== this.MyId) {
+      return 'bubble client';
+    } else {
+      return 'bubble';
+    }
   }
 }
