@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MessagesService } from '../../services/messages.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -8,6 +8,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./chat-feed.component.css']
 })
 export class ChatFeedComponent implements OnInit {
+
+  @ViewChild('scrollMe') private myScroller: ElementRef;
 
   constructor(private messagesService: MessagesService,
               private authService: AuthService) { }
@@ -32,14 +34,24 @@ export class ChatFeedComponent implements OnInit {
     this.loadingSpinner = true;
     this.messagesService.getAllMessages().then((messageObs: any) => {
       if (!messageObs) {
+        this.loadingSpinner = false;
+        this.messages = [];
         console.log('Nothing to Show');
       } else {
         messageObs.subscribe((messages) => {
           this.loadingSpinner = false;
           this.messages = messages;
+          this.scrollDown();
         });
       }
     });
+  }
+
+  // Scroll down
+  scrollDown() {
+    setTimeout(() => {
+      this.myScroller.nativeElement.scrollTop = this.myScroller.nativeElement.scrollHeight;
+    }, 1000);
   }
 
   // Choose bubble style
