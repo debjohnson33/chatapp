@@ -83,7 +83,7 @@ export class MessagesService {
           resolve(false);
         } else {
           resolve(this.afs.collection('messages').doc(snapShot.docs[0].data().messageId)
-            .collection('msgs').valueChanges());
+            .collection('msgs', ref => ref.orderBy('timestamp')).valueChanges());
         }
       });
     });
