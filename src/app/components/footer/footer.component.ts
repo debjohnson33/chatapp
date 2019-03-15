@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  newMessage: string;
+
+  constructor(private msgService: MessagesService) { }
 
   ngOnInit() {
+  }
+
+  addMessage() {
+    if (this.newMessage !== '') {
+      this.msgService.addNewMsg(this.newMessage);
+    }
   }
 
 }
