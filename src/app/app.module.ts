@@ -37,6 +37,8 @@ import { RequestsService } from './services/requests.service';
 import { FriendsService } from './services/friends.service';
 import { MessagesService } from './services/messages.service';
 import { FooterComponent } from './components/footer/footer.component';
+import { SmartDatePipe } from './pipes/smart-date.pipe';
+import { RelativeDatePipe } from './pipes/relative-date.pipe';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { FooterComponent } from './components/footer/footer.component';
     RequestsComponent,
     MyfriendsComponent,
     ChatFeedComponent,
-    FooterComponent
+    FooterComponent,
+    SmartDatePipe,
+    RelativeDatePipe
   ],
   imports: [
     BrowserModule,
