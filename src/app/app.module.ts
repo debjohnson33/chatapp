@@ -17,6 +17,7 @@ import { RequestsComponent } from './components/requests/requests.component';
 import { MyfriendsComponent } from './components/myfriends/myfriends.component';
 import { ChatFeedComponent } from './components/chat-feed/chat-feed.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -57,7 +58,8 @@ import { RelativeDatePipe } from './pipes/relative-date.pipe';
     ChatFeedComponent,
     FooterComponent,
     SmartDatePipe,
-    RelativeDatePipe
+    RelativeDatePipe,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +72,9 @@ import { RelativeDatePipe } from './pipes/relative-date.pipe';
     AngularFireModule.initializeApp(environment.config),
     AngularFireAuthModule,
     AngularFirestoreModule
+  ],
+  entryComponents: [
+    LoadingSpinnerComponent
   ],
   providers: [
     AuthService,

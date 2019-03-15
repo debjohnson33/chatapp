@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MessagesService } from '../../services/messages.service';
 import { AuthService } from '../../services/auth.service';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+
+import { MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-chat-feed',
@@ -12,7 +15,8 @@ export class ChatFeedComponent implements OnInit {
   @ViewChild('scrollMe') private myScroller: ElementRef;
 
   constructor(private messagesService: MessagesService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private dialogRef: MatDialog) { }
 
   showChat: boolean;
   messages = [];
@@ -20,6 +24,7 @@ export class ChatFeedComponent implements OnInit {
   MyId;
   MyAvatar;
   currentChatUser;
+  checkFirst = 1;
 
   ngOnInit() {
     this.messagesService.enteredChat.subscribe((value) => {
@@ -33,6 +38,7 @@ export class ChatFeedComponent implements OnInit {
   getMessages() {
     this.loadingSpinner = true;
     this.messagesService.getAllMessages().then((messageObs: any) => {
+      this.checkFirst = 1;
       if (!messageObs) {
         this.loadingSpinner = false;
         this.messages = [];
@@ -41,16 +47,34 @@ export class ChatFeedComponent implements OnInit {
         messageObs.subscribe((messages) => {
           this.loadingSpinner = false;
           this.messages = messages;
+          if (this.checkFirst === 1) {
+            this.openDialog();
+            this.checkFirst += 1;
+          }
           this.scrollDown();
         });
       }
     });
   }
 
+  // Loading overlay
+  openDialog() {
+    this.dialogRef.open(LoadingSpinnerComponent, {
+      height: '150px',
+      width: '150px'
+    });
+  }
+
+  // Closing the loading overlay
+  closeDialog() {
+    this.dialogRef.closeAll();
+  }
+
   // Scroll down
   scrollDown() {
     setTimeout(() => {
       this.myScroller.nativeElement.scrollTop = this.myScroller.nativeElement.scrollHeight;
+      this.closeDialog();
     }, 1000);
   }
 
