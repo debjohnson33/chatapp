@@ -1,4 +1,4 @@
-<mat-list>
+<mat-list style="cursor: pointer;">
   <mat-list-item *ngFor="let user of users; let i = index" (click)="enterChat(user)"> 
     <img matListAvatar src="{{user.photoURL}}">
     <h3 matLine>{{user.displayName}}</h3>
