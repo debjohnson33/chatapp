@@ -42,6 +42,7 @@ import { MessagesService } from './services/messages.service';
 // Pipes
 import { SmartDatePipe } from './pipes/smart-date.pipe';
 import { RelativeDatePipe } from './pipes/relative-date.pipe';
+import { ScrollableDirective } from './directives/scrollable.directive';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { RelativeDatePipe } from './pipes/relative-date.pipe';
     FooterComponent,
     SmartDatePipe,
     RelativeDatePipe,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    ScrollableDirective
   ],
   imports: [
     BrowserModule,
