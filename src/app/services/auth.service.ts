@@ -22,6 +22,10 @@ export class AuthService {
     return this.authState !== null && this.authState !== undefined ? true : false;
   }
 
+  currentUserDetails(): firebase.User {
+    return this.afauth.auth.currentUser;
+  }
+
   get currentUserId(): string {
     return this.authState !== null ? this.authState.uid : '';
   }
