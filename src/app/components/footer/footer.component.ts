@@ -18,6 +18,7 @@ export class FooterComponent implements OnInit {
   addMessage() {
     if (this.newMessage !== '') {
       this.msgService.addNewMsg(this.newMessage);
+      this.newMessage = '';
     }
   }
 
