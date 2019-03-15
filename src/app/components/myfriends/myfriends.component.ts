@@ -45,4 +45,9 @@ export class MyfriendsComponent implements OnInit {
     });
   }
 
+  // Chat with a particular user
+  enterChat(user) {
+
+  }
+
 }
