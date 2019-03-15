@@ -36,6 +36,7 @@ import { UserService } from './services/user.service';
 import { RequestsService } from './services/requests.service';
 import { FriendsService } from './services/friends.service';
 import { MessagesService } from './services/messages.service';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MessagesService } from './services/messages.service';
     AddfriendComponent,
     RequestsComponent,
     MyfriendsComponent,
-    ChatFeedComponent
+    ChatFeedComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
