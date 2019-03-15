@@ -16,6 +16,7 @@ import { AddfriendComponent } from './components/addfriend/addfriend.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { MyfriendsComponent } from './components/myfriends/myfriends.component';
 import { ChatFeedComponent } from './components/chat-feed/chat-feed.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -36,7 +37,8 @@ import { UserService } from './services/user.service';
 import { RequestsService } from './services/requests.service';
 import { FriendsService } from './services/friends.service';
 import { MessagesService } from './services/messages.service';
-import { FooterComponent } from './components/footer/footer.component';
+
+// Pipes
 import { SmartDatePipe } from './pipes/smart-date.pipe';
 import { RelativeDatePipe } from './pipes/relative-date.pipe';
 

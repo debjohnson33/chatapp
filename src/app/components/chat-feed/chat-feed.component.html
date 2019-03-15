@@ -17,12 +17,8 @@
           <p class="copy">{{msg.message}}</p>
         </div>
       </div>
-  </div>    
-  <mat-list>
-    <mat-list-item *ngFor="let message of messages">
-      {{message.message}}
-    </mat-list-item>
-  </mat-list>
+      <p class="time">{{msg.timestamp | smartDate}}</p>
+  </div>
 </div>
 <footer class="footer" * ngIf="showChat">
   <app-footer></app-footer>
