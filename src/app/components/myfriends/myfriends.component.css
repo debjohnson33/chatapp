@@ -12,3 +12,7 @@
 .presence.offline {
     background-color: red;
 }
+
+a {
+    cursor: pointer;
+}

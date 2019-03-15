@@ -15,6 +15,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AddfriendComponent } from './components/addfriend/addfriend.component';
 import { RequestsComponent } from './components/requests/requests.component';
 import { MyfriendsComponent } from './components/myfriends/myfriends.component';
+import { ChatFeedComponent } from './components/chat-feed/chat-feed.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -34,7 +35,7 @@ import { AuthguardService } from './services/authguard.service';
 import { UserService } from './services/user.service';
 import { RequestsService } from './services/requests.service';
 import { FriendsService } from './services/friends.service';
-import { ChatFeedComponent } from './components/chat-feed/chat-feed.component';
+import { MessagesService } from './services/messages.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ChatFeedComponent } from './components/chat-feed/chat-feed.component';
     AuthguardService,
     UserService,
     RequestsService,
-    FriendsService
+    FriendsService,
+    MessagesService
   ],
   bootstrap: [AppComponent]
 })
