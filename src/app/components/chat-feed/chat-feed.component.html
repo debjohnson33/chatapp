@@ -1,4 +1,15 @@
-<div *ngIf="showChat">
+<div class="content" *ngIf="showChat">
+  <div class="sk-folding-cube" *ngIf="loadingSpinner">
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+  </div>
+  <div id="chat">
+      <div *ngFor="let msg of messages" [ngClass]="chooseClass(msg)">
+        
+      </div>
+  </div>    
   <mat-list>
     <mat-list-item *ngFor="let message of messages">
       {{message.message}}
