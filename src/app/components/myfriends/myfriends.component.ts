@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendsService } from '../../services/friends.service';
 import { UserService } from '../../services/user.service';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-myfriends',
@@ -9,7 +10,9 @@ import { UserService } from '../../services/user.service';
 })
 export class MyfriendsComponent implements OnInit {
 
-  constructor(private friendService: FriendsService, private userService: UserService) { }
+  constructor(private friendService: FriendsService,
+              private userService: UserService,
+              private messagesService: MessagesService) { }
 
   users;
   statuses = [];
@@ -47,7 +50,7 @@ export class MyfriendsComponent implements OnInit {
 
   // Chat with a particular user
   enterChat(user) {
-
+    this.messagesService.enterChat(user);
   }
 
 }

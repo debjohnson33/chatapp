@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-chat-feed',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatFeedComponent implements OnInit {
 
-  constructor() { }
+  constructor(private messagesService: MessagesService) { }
+
+  showChat: boolean;
 
   ngOnInit() {
+    this.messagesService.enteredChat.subscribe((value) => {
+      this.showChat = value;
+    });
   }
 
 }
