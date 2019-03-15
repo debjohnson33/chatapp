@@ -73,4 +73,20 @@ export class MessagesService {
     });
   }
 
+  getAllMessages() {
+    return new Promise((resolve) => {
+      const collRef = this.afs.collection('conversations').ref;
+      const queryRef = collRef.where('myemail', '==', this.afauth.auth.currentUser.email)
+                            .where('withWhom', '==', this.currentChatUser.email);
+      queryRef.get().then((snapShot) => {
+        if (snapShot.empty) {
+          resolve(false);
+        } else {
+          resolve(this.afs.collection('messages').doc(snapShot.docs[0].data().messageId)
+            .collection('msgs').valueChanges());
+        }
+      });
+    });
+  }
+
 }
