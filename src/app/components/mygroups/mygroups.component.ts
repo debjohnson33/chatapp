@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupsService } from '../../services/groups.service';
+import { MessagesService } from '../../services/messages.service';
+
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -14,7 +16,8 @@ export class MygroupsComponent implements OnInit {
   myGroups = [];
 
   constructor(private groupsService: GroupsService,
-              private toast: MatSnackBar) { }
+              private toast: MatSnackBar,
+              private messagesService: MessagesService) { }
 
   ngOnInit() {
     this.groupsService.getGroups().subscribe((allGroups) => {
@@ -33,6 +36,11 @@ export class MygroupsComponent implements OnInit {
       });
       this.groupName = '';
     });
+  }
+
+  openGroup(group) {
+    this.groupsService.enterGroup(group);
+    this.messagesService.enterChat('closed');
   }
 
 }

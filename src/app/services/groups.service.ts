@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { BehaviorSubject } from 'rxjs/';
+import { BehaviorSubject, Subject } from 'rxjs/';
 import * as firebase from 'firebase';
 
 @Injectable({
@@ -12,9 +12,22 @@ export class GroupsService {
 
   groupPicDefault: string;
   groupDocRef;
+  enteredGroup = new Subject();
+  currentGroup;
 
   constructor(private afauth: AngularFireAuth,
               private afs: AngularFirestore) { }
+
+  // Entering a group
+  enterGroup(group) {
+    if (group !== 'closed') {
+      this.currentGroup = group;
+      this.enteredGroup.next('true');
+    } else {
+      this.currentGroup = '';
+      this.enteredGroup.next('false');
+    }
+  }
 
   // Creating a group
   createGroup(groupName) {
