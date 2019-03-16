@@ -103,7 +103,7 @@ export class MessagesService {
     const picName = 'picture' + 'randNo';
     const uploadTask = this.storage.upload('/picmessages/' + picName, pic);
     uploadTask.then((data) => {
-      downloadURL = data.downloadURL;
+      downloadURL = 'picMsg' + data.downloadURL;
       if (data.metadata.contentType.match('image/.*')) {
         this.addNewMsg(downloadURL);
       } else {

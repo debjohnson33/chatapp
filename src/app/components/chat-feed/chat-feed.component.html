@@ -10,7 +10,7 @@
       <div *ngFor="let msg of messages" [ngClass]="chooseClass(msg)">
         <!-- For Picture messages -->
         <div class="preview" *ngIf="isPicMsg">
-          <img src="{{msg.message}}">
+          <img src="{{pictureMessage}}">
         </div>
         <div class="content" *ngIf="isPicMsg">
           <h2 class="title" *ngIf="msg.sentby == MyId">
