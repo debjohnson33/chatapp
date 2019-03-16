@@ -19,10 +19,13 @@
           <h2 class="title" *ngIf="msg.sentby !== MyId">
               {{currentChatUser.displayName}} sent a picture
             </h2>
+            <div class="description">
+              Picture messages will be displayed in small sized previews
+            </div>
         </div>
 
         <!-- For text messages -->
-        <div class="content">
+        <div class="content" *ngIf="!isPicMsg">
           <div class="avatar" *ngIf="msg.sentby == MyId">
             <img src="{{currentChatUser.photoURL}}">
           </div>
