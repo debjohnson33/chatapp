@@ -5,6 +5,9 @@ import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.comp
 
 import { MatDialog } from '@angular/material';
 
+// Lodash
+import * as _ from 'lodash';
+
 @Component({
   selector: 'app-chat-feed',
   templateUrl: './chat-feed.component.html',
@@ -26,6 +29,12 @@ export class ChatFeedComponent implements OnInit {
   currentChatUser;
   checkFirst = 1;
 
+  // Infinite Scroll Helper
+  count = 10;
+  trackMsgCount;
+  shouldLoad = true;
+  allLoaded = false;
+
   ngOnInit() {
     this.messagesService.enteredChat.subscribe((value) => {
       this.showChat = value;
@@ -37,16 +46,24 @@ export class ChatFeedComponent implements OnInit {
 
   getMessages() {
     this.loadingSpinner = true;
-    this.messagesService.getAllMessages().then((messageObs: any) => {
+    this.messagesService.getAllMessages(this.count).then((messageObs: any) => {
       this.checkFirst = 1;
       if (!messageObs) {
         this.loadingSpinner = false;
         this.messages = [];
+        this.count = 10;
+        this.trackMsgCount = 0;
+        this.shouldLoad = true;
+        this.allLoaded = false;
         console.log('Nothing to Show');
       } else {
         messageObs.subscribe((messages) => {
           this.loadingSpinner = false;
-          this.messages = messages;
+          this.trackMsgCount = 0;
+          this.shouldLoad = true;
+          this.allLoaded = false;
+          const reversed = _.reverse(messages);
+          this.messages = reversed;
           if (this.checkFirst === 1) {
             this.openDialog();
             this.checkFirst += 1;
@@ -68,6 +85,32 @@ export class ChatFeedComponent implements OnInit {
   // Closing the loading overlay
   closeDialog() {
     this.dialogRef.closeAll();
+  }
+
+  // Infinite scrolling
+  scrollHandler(e) {
+    if (e === 'top') {
+      if (this.shouldLoad) {
+        this.count += 10;
+        this.loadingSpinner = true;
+
+        this.messagesService.getAllMessages(this.count).then((gotMsgs: any) => {
+          gotMsgs.subscribe((messages) => {
+            this.messages = [];
+            const reversed = _.reverse(messages);
+            this.messages = reversed;
+            this.loadingSpinner = false;
+            if (this.messages.length === this.trackMsgCount) {
+              this.shouldLoad = false;
+            } else {
+              this.trackMsgCount = this.messages.length;
+            }
+          });
+        });
+      } else {
+        this.allLoaded = true;
+      }
+    }
   }
 
   // Scroll down

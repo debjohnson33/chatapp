@@ -73,7 +73,7 @@ export class MessagesService {
     });
   }
 
-  getAllMessages() {
+  getAllMessages(count) {
     return new Promise((resolve) => {
       const collRef = this.afs.collection('conversations').ref;
       const queryRef = collRef.where('myemail', '==', this.afauth.auth.currentUser.email)
@@ -83,7 +83,7 @@ export class MessagesService {
           resolve(false);
         } else {
           resolve(this.afs.collection('messages').doc(snapShot.docs[0].data().messageId)
-            .collection('msgs', ref => ref.orderBy('timestamp')).valueChanges());
+            .collection('msgs', ref => ref.orderBy('timestamp', 'desc').limit(count)).valueChanges());
         }
       });
     });

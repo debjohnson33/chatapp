@@ -1,4 +1,4 @@
-<div class="content" #scrollMe *ngIf="showChat">
+<div class="content" #scrollMe scrollable (scrollPosition)="scrollHandler($event)" *ngIf="showChat">
   <div class="sk-folding-cube" *ngIf="loadingSpinner">
       <div class="sk-cube1 sk-cube"></div>
       <div class="sk-cube2 sk-cube"></div>
@@ -6,6 +6,7 @@
       <div class="sk-cube3 sk-cube"></div>
   </div>
   <div id="chat">
+      <p *ngIf="allLoaded">No more messages</p>
       <div *ngFor="let msg of messages" [ngClass]="chooseClass(msg)">
         <div class="content">
           <div class="avatar" *ngIf="msg.sentby == MyId">
