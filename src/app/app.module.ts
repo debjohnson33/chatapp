@@ -21,6 +21,8 @@ import { LoadingSpinnerComponent } from './components/loading-spinner/loading-sp
 import { ActivityComponent } from './components/activity/activity.component';
 import { FriendInfoComponent } from './components/friend-info/friend-info.component';
 import { MygroupsComponent } from './components/mygroups/mygroups.component';
+import { GroupMenuComponent } from './components/group-menu/group-menu.component';
+import { AddMemberComponent } from './components/add-member/add-member.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -47,7 +49,6 @@ import { GroupsService } from './services/groups.service';
 import { SmartDatePipe } from './pipes/smart-date.pipe';
 import { RelativeDatePipe } from './pipes/relative-date.pipe';
 import { ScrollableDirective } from './directives/scrollable.directive';
-import { GroupMenuComponent } from './components/group-menu/group-menu.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { GroupMenuComponent } from './components/group-menu/group-menu.component
     ActivityComponent,
     FriendInfoComponent,
     MygroupsComponent,
-    GroupMenuComponent
+    GroupMenuComponent,
+    AddMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,8 @@ import { GroupMenuComponent } from './components/group-menu/group-menu.component
     AngularFirestoreModule
   ],
   entryComponents: [
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AddMemberComponent
   ],
   providers: [
     AuthService,

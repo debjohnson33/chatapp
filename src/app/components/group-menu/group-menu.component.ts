@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupsService } from '../../services/groups.service';
 import { AuthService } from '../../services/auth.service';
+import { MatDialog } from '@angular/material';
+
+// Dialog Components
+import { AddMemberComponent } from '../add-member/add-member.component';
 
 @Component({
   selector: 'app-group-menu',
@@ -14,7 +18,8 @@ export class GroupMenuComponent implements OnInit {
   isOwner = false;
 
   constructor(private groupsService: GroupsService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private dialogRef: MatDialog) { }
 
   ngOnInit() {
     this.groupsService.enteredGroup.subscribe((value) => {
@@ -27,6 +32,13 @@ export class GroupMenuComponent implements OnInit {
       } else {
         this.isGroup = false;
       }
+    });
+  }
+
+  addMember() {
+    this.dialogRef.open(AddMemberComponent, {
+      height: '500px',
+      width: '400px'
     });
   }
 
