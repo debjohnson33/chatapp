@@ -38,8 +38,10 @@ export class ChatFeedComponent implements OnInit {
   ngOnInit() {
     this.messagesService.enteredChat.subscribe((value) => {
       this.showChat = value;
-      this.getMessages();
-      this.currentChatUser = this.messagesService.currentChatUser;
+      if (value) {
+        this.getMessages();
+        this.currentChatUser = this.messagesService.currentChatUser;
+      }
     });
     this.MyAvatar = this.authService.currentUserDetails().photoURL;
   }
