@@ -19,8 +19,14 @@ export class MessagesService {
               private afauth: AngularFireAuth) { }
 
   enterChat(user) {
-    this.currentChatUser = user;
-    this.enteredChat.next(true);
+    if (user !== 'closed') {
+      this.currentChatUser = user;
+      this.enteredChat.next(true);
+    } else {
+      this.enteredChat.next(false);
+      this.currentChatUser = '';
+    }
+
   }
 
   addNewMsg(newMsg) {

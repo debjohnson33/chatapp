@@ -1,3 +1,15 @@
-<p>
-  friend-info works!
-</p>
+<div fxLayout="row" fxLayoutAlign="center" *ngIf="isUserSelected">
+  <div fxLayout="column" fxLayoutAlign="center">
+    
+  <img class="centered-and-cropped" src="{{currentUser.photoURL}}" width="150" height="150" style="border-radius:50%">
+  <h3>Nickname: {{currentUser.displayName}}</h3>
+  <div>
+  
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center">
+  <span matTooltip="Call"><button mat-mini-fab color="primary" (click)="audioCall()"><mat-icon>call</mat-icon></button>&nbsp;&nbsp;</span>
+  <span matTooltip="Close chat"><button mat-mini-fab color="warn" (click)="closeChat()"><mat-icon>close</mat-icon></button>&nbsp;&nbsp;</span>
+  </div>
+  </div>
+  </div>
+  <p *ngIf="!isUserSelected">Please select a friend to see his info</p>

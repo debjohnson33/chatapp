@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessagesService } from '../../services/messages.service';
 
 @Component({
   selector: 'app-friend-info',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendInfoComponent implements OnInit {
 
-  constructor() { }
+  currentUser;
+  isUserSelected = false;
+
+  constructor(private messagesService: MessagesService) { }
 
   ngOnInit() {
+    this.messagesService.enteredChat.subscribe((value) => {
+      if (value) {
+        this.currentUser = this.messagesService.currentChatUser;
+        this.isUserSelected = true;
+      } else {
+        this.isUserSelected = false;
+      }
+    });
+  }
+
+  audioCall() {
+
+  }
+
+  closeChat() {
+    this.messagesService.enterChat('closed');
   }
 
 }
