@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FriendsService } from '../../services/friends.service';
 import { UserService } from '../../services/user.service';
 import { MessagesService } from '../../services/messages.service';
+import { GroupsService } from '../../services/groups.service';
 
 @Component({
   selector: 'app-myfriends',
@@ -12,7 +13,8 @@ export class MyfriendsComponent implements OnInit {
 
   constructor(private friendService: FriendsService,
               private userService: UserService,
-              private messagesService: MessagesService) { }
+              private messagesService: MessagesService,
+              private groupsService: GroupsService) { }
 
   users;
   statuses = [];
@@ -51,6 +53,7 @@ export class MyfriendsComponent implements OnInit {
   // Chat with a particular user
   enterChat(user) {
     this.messagesService.enterChat(user);
+    this.groupsService.enterGroup('closed');
   }
 
 }

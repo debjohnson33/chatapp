@@ -24,6 +24,8 @@ export class GroupMenuComponent implements OnInit {
           this.isOwner = true;
           this.isGroup = true;
         }
+      } else {
+        this.isGroup = false;
       }
     });
   }
