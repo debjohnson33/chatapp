@@ -13,6 +13,7 @@ export class AddMemberComponent implements OnInit {
 
   loadingSpinner = false;
   myFriends = [];
+  isMember = [];
 
   constructor(private friendsService: FriendsService,
               private groupsService: GroupsService,
@@ -33,4 +34,27 @@ export class AddMemberComponent implements OnInit {
     });
   }
 
+  addFriend(user) {
+    this.groupsService.addMember(user);
+  }
+
+  updateList() {
+    this.groupsService.getMembers().then((memberList: any) => {
+      let flag = 0;
+      this.isMember = [];
+      this.myFriends.forEach((member, i) => {
+        memberList.forEach((element) => {
+          if (member.email === element.email) {
+            flag += 1;
+          }
+        });
+        if (flag === 1) {
+          this.isMember.push(false);
+          flag = 0;
+        } else {
+          this.isMember.push(true);
+        }
+      });
+    });
+  }
 }

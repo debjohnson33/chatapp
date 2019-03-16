@@ -98,4 +98,16 @@ export class GroupsService {
     });
   }
 
+  // Get members from a group
+  getMembers() {
+    return new Promise((resolve) => {
+      const groupCollRef = this.afs.collection('groups').ref;
+      const queryRef = groupCollRef.where('groupName', '==', this.currentGroup.groupName).where('creator', '==', this.currentGroup.creator);
+      queryRef.get().then((snapShot) => {
+        resolve(this.afs.doc('groups/' + snapShot.docs[0].id).collection('members').valueChanges());
+      });
+    });
+  }
+
+
 }
