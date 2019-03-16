@@ -1,0 +1,9 @@
+.content {
+    min-height: calc(100vh - 500px);
+    overflow: scroll
+    /* 80px header + 40px footer = 120px  */
+}
+
+.content::-webkit-scrollbar {
+  display: none;
+}
