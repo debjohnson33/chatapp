@@ -8,6 +8,20 @@
   <div id="chat">
       <p *ngIf="allLoaded">No more messages</p>
       <div *ngFor="let msg of messages" [ngClass]="chooseClass(msg)">
+        <!-- For Picture messages -->
+        <div class="preview" *ngIf="isPicMsg">
+          <img src="{{msg.message}}">
+        </div>
+        <div class="content" *ngIf="isPicMsg">
+          <h2 class="title" *ngIf="msg.sentby == MyId">
+            You sent a picture
+          </h2>
+          <h2 class="title" *ngIf="msg.sentby !== MyId">
+              {{currentChatUser.displayName}} sent a picture
+            </h2>
+        </div>
+
+        <!-- For text messages -->
         <div class="content">
           <div class="avatar" *ngIf="msg.sentby == MyId">
             <img src="{{currentChatUser.photoURL}}">

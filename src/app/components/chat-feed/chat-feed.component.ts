@@ -35,6 +35,10 @@ export class ChatFeedComponent implements OnInit {
   shouldLoad = true;
   allLoaded = false;
 
+  // Picture message helpers
+  isPicMsg = false;
+  pictureMessage;
+
   ngOnInit() {
     this.messagesService.enteredChat.subscribe((value) => {
       this.showChat = value;
@@ -126,10 +130,22 @@ export class ChatFeedComponent implements OnInit {
   // Choose bubble style
   chooseClass(msg) {
     this.MyId = this.authService.currentUserDetails().email;
-    if (msg.sentby !== this.MyId) {
-      return 'bubble client';
-    } else {
+
+    if (msg.sentby !== this.MyId && msg.message.includes('picMsg')) {
+      this.isPicMsg = true;
+      this.pictureMessage = msg.message.substring(6);
+      return 'bubble client attachment';
+    } else if (msg.sentby === this.MyId && msg.message.includes('picMsg')) {
+      this.isPicMsg = true;
+      this.pictureMessage = msg.message.substring(6);
+      return 'bubble client attachment';
+    } else if (msg.sentby !== this.MyId && !msg.message.includes('picMsg')) {
+      this.isPicMsg = false;
       return 'bubble';
+    } else if (msg.sentby === this.MyId && !msg.message.includes('picMsg')) {
+      this.isPicMsg = false;
+      return 'bubble client';
     }
+
   }
 }
