@@ -45,6 +45,7 @@ import { RelativeDatePipe } from './pipes/relative-date.pipe';
 import { ScrollableDirective } from './directives/scrollable.directive';
 import { ActivityComponent } from './components/activity/activity.component';
 import { FriendInfoComponent } from './components/friend-info/friend-info.component';
+import { MygroupsComponent } from './components/mygroups/mygroups.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { FriendInfoComponent } from './components/friend-info/friend-info.compon
     LoadingSpinnerComponent,
     ScrollableDirective,
     ActivityComponent,
-    FriendInfoComponent
+    FriendInfoComponent,
+    MygroupsComponent
   ],
   imports: [
     BrowserModule,
