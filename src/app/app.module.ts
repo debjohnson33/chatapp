@@ -43,6 +43,8 @@ import { MessagesService } from './services/messages.service';
 import { SmartDatePipe } from './pipes/smart-date.pipe';
 import { RelativeDatePipe } from './pipes/relative-date.pipe';
 import { ScrollableDirective } from './directives/scrollable.directive';
+import { ActivityComponent } from './components/activity/activity.component';
+import { FriendInfoComponent } from './components/friend-info/friend-info.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { ScrollableDirective } from './directives/scrollable.directive';
     SmartDatePipe,
     RelativeDatePipe,
     LoadingSpinnerComponent,
-    ScrollableDirective
+    ScrollableDirective,
+    ActivityComponent,
+    FriendInfoComponent
   ],
   imports: [
     BrowserModule,
