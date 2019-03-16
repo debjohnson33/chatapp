@@ -47,6 +47,7 @@ import { GroupsService } from './services/groups.service';
 import { SmartDatePipe } from './pipes/smart-date.pipe';
 import { RelativeDatePipe } from './pipes/relative-date.pipe';
 import { ScrollableDirective } from './directives/scrollable.directive';
+import { GroupMenuComponent } from './components/group-menu/group-menu.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { ScrollableDirective } from './directives/scrollable.directive';
     ScrollableDirective,
     ActivityComponent,
     FriendInfoComponent,
-    MygroupsComponent
+    MygroupsComponent,
+    GroupMenuComponent
   ],
   imports: [
     BrowserModule,

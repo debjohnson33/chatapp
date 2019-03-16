@@ -1,0 +1,17 @@
+<div fxLayout="row" fxLayoutAlign="center" *ngIf="isGroup">
+  <div fxLayout="column" fxLayoutAlign="center">
+    
+  <img class="centered-and-cropped" src="{{currentGroup.groupPic}}" width="150" height="150" style="border-radius:50%">
+  <h3>Group name: {{currentGroup.groupName}}</h3>
+  </div>
+  
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center" *ngIf=isGroup>
+  <span matTooltip="Add a Friend" *ngIf="isOwner"><button mat-mini-fab color="primary" *ngIf="isOwner" (click)="addMember()"><mat-icon>add</mat-icon></button>&nbsp;&nbsp;</span>
+  <span matTooltip="Kick out a member" *ngIf="isOwner"><button mat-mini-fab color="primary" *ngIf="isOwner" (click)="removeMember()"><mat-icon>remove</mat-icon></button>&nbsp;&nbsp;</span>
+  <span matTooltip="Change group pic" *ngIf="isOwner"><button mat-mini-fab color="primary" *ngIf="isOwner" (click)="fileInput.click()"><mat-icon>assignment_ind</mat-icon></button>&nbsp;&nbsp;</span>
+  <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />
+  <span matTooltip="Group info"><button mat-mini-fab color="primary" (click)="groupInfo()"><mat-icon>info</mat-icon></button>&nbsp;&nbsp;</span>
+  <span matTooltip="Chuck it in the bin" *ngIf="isOwner"><button mat-mini-fab color="warn" *ngIf="isOwner" (click)="deleteGroup()"><mat-icon>delete</mat-icon></button>&nbsp;&nbsp;</span>
+      </div>
+  
