@@ -10,7 +10,8 @@ import * as firebase from 'firebase';
 })
 export class GroupsService {
 
-  groupPicDefault: string;
+  // tslint:disable-next-line:max-line-length
+  groupPicDefault = 'https://firebasestorage.googleapis.com/v0/b/myapp-4eadd.appspot.com/o/group-placeholder.jpg?alt=media&token=fd8915d0-9e49-44fa-bbfe-0efddd94a867';
   groupDocRef;
   enteredGroup = new Subject();
   currentGroup;

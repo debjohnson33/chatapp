@@ -31,7 +31,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    let response = this.auth.login(this.usercreds);
+    const response = this.auth.login(this.usercreds);
     response.catch((err) => {
       if (err.code === 'auth/user-not-found') {
         this.snackBar.open('User not found', 'Close', { duration: 3000});

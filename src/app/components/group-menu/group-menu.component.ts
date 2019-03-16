@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupsService } from '../../services/groups.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-group-menu',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupMenuComponent implements OnInit {
 
-  constructor() { }
+  currentGroup;
+  isGroup = false;
+  isOwner = false;
+
+  constructor(private groupsService: GroupsService,
+              private authService: AuthService) { }
 
   ngOnInit() {
+    this.groupsService.enteredGroup.subscribe((value) => {
+      if (value) {
+        this.currentGroup = this.groupsService.currentGroup;
+        if (this.currentGroup.creator === this.authService.currentUserDetails().email) {
+          this.isOwner = true;
+          this.isGroup = true;
+        }
+      }
+    });
   }
 
 }
