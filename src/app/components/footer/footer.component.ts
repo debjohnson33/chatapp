@@ -9,6 +9,7 @@ import { MessagesService } from '../../services/messages.service';
 export class FooterComponent implements OnInit {
 
   newMessage: string;
+  picMessage: FileList;
 
   constructor(private msgService: MessagesService) { }
 
@@ -19,6 +20,13 @@ export class FooterComponent implements OnInit {
     if (this.newMessage !== '') {
       this.msgService.addNewMsg(this.newMessage);
       this.newMessage = '';
+    }
+  }
+
+  sendImage(event) {
+    this.picMessage = event.target.files;
+    if (this.picMessage.item(0)) {
+      this.msgService.addPicMsg(this.picMessage.item(0));
     }
   }
 

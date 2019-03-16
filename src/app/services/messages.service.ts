@@ -16,7 +16,8 @@ export class MessagesService {
   secondDocId: string;
 
   constructor(private afs: AngularFirestore,
-              private afauth: AngularFireAuth) { }
+              private afauth: AngularFireAuth,
+              private storage: AngularFireStorage) { }
 
   enterChat(user) {
     if (user !== 'closed') {
@@ -95,4 +96,24 @@ export class MessagesService {
     });
   }
 
+  // Send Picture message
+  addPicMsg(pic) {
+    let downloadURL;
+    const randNo = Math.floor(Math.random() * 10000000);
+    const picName = 'picture' + 'randNo';
+    const uploadTask = this.storage.upload('/picmessages/' + picName, pic);
+    uploadTask.then((data) => {
+      downloadURL = data.downloadURL;
+      if (data.metadata.contentType.match('image/.*')) {
+        this.addNewMsg(downloadURL);
+      } else {
+        data.ref.delete().then(() => {
+          console.log('Not an image');
+        });
+      }
+      }).catch((err) => {
+        console.log('Upload failed');
+        console.log(err);
+      });
+  }
 }

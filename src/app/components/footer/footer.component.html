@@ -2,3 +2,5 @@
 <input matInput placeholder="Say something" [(ngModel)]="newmessage">
 </mat-form-field>
 <button mat-icon-button (click)="addMessage()"><mat-icon color="primary">send</mat-icon></button>
+<span matTooltip="Send Image"><button mat-icon-button color="primary" (click)="fileInput.click()"><mat-icon>assignment_ind</mat-icon></button>&nbsp;&nbsp;</span>
+  <input #fileInput type="file" (change)="sendImage($event)" style="display:none;" />
