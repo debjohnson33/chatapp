@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MygroupsComponent implements OnInit {
 
+  groupName: string;
+  showAdd = false;
+
   constructor() { }
 
   ngOnInit() {
+
+  }
+
+  addGroup() {
+    this.showAdd = this.showAdd;
   }
 
 }
