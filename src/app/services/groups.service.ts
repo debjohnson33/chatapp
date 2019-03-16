@@ -46,4 +46,9 @@ export class GroupsService {
       });
     });
   }
+
+  getGroups() {
+    return this.afs.collection('groups', ref => ref.where('creator', '==', this.afauth.auth.currentUser.email)).valueChanges();
+  }
+
 }
