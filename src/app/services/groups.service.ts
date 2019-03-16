@@ -65,4 +65,37 @@ export class GroupsService {
     return this.afs.collection('groups', ref => ref.where('creator', '==', this.afauth.auth.currentUser.email)).valueChanges();
   }
 
+  // Add members to group
+  addMember(user) {
+    return new Promise((resolve) => {
+      const groupCollRef = this.afs.collection('groups').ref;
+      const firstlevelquery = groupCollRef.where('groupName', '==', this.currentGroup.groupName);
+      const secondquery = firstlevelquery.where('creator', '==', this.afauth.auth.currentUser.email);
+      secondquery.get().then((snapShot) => {
+        if (!snapShot.empty) {
+          this.afs.doc('groups/' + snapShot.docs[0].id).collection('members').add(user).then(() => {
+            const memberOfCollRef = this.afs.collection('memberof').ref;
+            const queryRef = memberOfCollRef.where('email', '==', user.email);
+            // tslint:disable-next-line:no-shadowed-variable
+            queryRef.get().then((snapShot) => {
+              if (snapShot.empty) {
+                this.afs.collection('memberof').add({
+                  email: user.email
+                }).then((docRef) => {
+                  this.afs.doc('memberof/' + docRef.id).collection('groups').add(this.currentGroup).then(() => {
+                    resolve();
+                  });
+                });
+              } else {
+                this.afs.doc('memberof/' + snapShot.docs[0].id).collection('groups').add(this.currentGroup).then(() => {
+                  resolve();
+                });
+              }
+            });
+          });
+        }
+      });
+    });
+  }
+
 }
