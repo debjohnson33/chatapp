@@ -51,6 +51,8 @@ import { GroupsService } from './services/groups.service';
 import { SmartDatePipe } from './pipes/smart-date.pipe';
 import { RelativeDatePipe } from './pipes/relative-date.pipe';
 import { ScrollableDirective } from './directives/scrollable.directive';
+import { GroupChatFeedComponent } from './components/group-chat-feed/group-chat-feed.component';
+import { GroupFooterComponent } from './components/group-footer/group-footer.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { ScrollableDirective } from './directives/scrollable.directive';
     GroupMenuComponent,
     AddMemberComponent,
     GroupInfoComponent,
-    RemoveMemberComponent
+    RemoveMemberComponent,
+    GroupChatFeedComponent,
+    GroupFooterComponent
   ],
   imports: [
     BrowserModule,
