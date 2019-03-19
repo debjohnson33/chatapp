@@ -20,6 +20,10 @@ export class MygroupsComponent implements OnInit {
               private messagesService: MessagesService) { }
 
   ngOnInit() {
+    this.refreshList();
+  }
+
+  refreshList() {
     this.groupsService.getGroups().then((groupObs: any) => {
       groupObs.subscribe((groups) => {
         this.myGroups = groups;
