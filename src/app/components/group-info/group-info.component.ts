@@ -24,8 +24,9 @@ export class GroupInfoComponent implements OnInit {
       memberList.subscribe((members) => {
         this.members = members;
         this.loadingSpinner = false;
-      })
-    })
+      });
+    });
+    this.currentGroup = this.groupsService.currentGroup;
   }
 
 }
