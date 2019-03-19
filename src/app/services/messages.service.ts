@@ -5,6 +5,8 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import { BehaviorSubject } from 'rxjs/';
 import * as firebase from 'firebase';
 
+import { GroupsService } from './groups.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +19,8 @@ export class MessagesService {
 
   constructor(private afs: AngularFirestore,
               private afauth: AngularFireAuth,
-              private storage: AngularFireStorage) { }
+              private storage: AngularFireStorage,
+              private groupService: GroupsService) { }
 
   enterChat(user) {
     if (user !== 'closed') {
@@ -115,5 +118,20 @@ export class MessagesService {
         console.log('Upload failed');
         console.log(err);
       });
+  }
+
+  // Group Chatting
+  // Add a group message
+  addGroupMsg(newMessage) {
+    const groupCollRef = this.afs.collection('groups').ref;
+    const queryRef = groupCollRef.where('groupName', '==', this.groupService.currentGroup.groupName)
+                              .where('creator', '==', this.groupService.currentGroup.creator);
+    queryRef.get().then((snapShot) => {
+      this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').add({
+        message: newMessage,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp,
+        sentby: this.afauth.auth.currentUser.email
+      });
+    });
   }
 }

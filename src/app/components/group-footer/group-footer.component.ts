@@ -18,7 +18,7 @@ export class GroupFooterComponent implements OnInit {
 
   addMessage() {
     if (this.newMessage !== '') {
-      this.msgService.addNewMsg(this.newMessage);
+      this.msgService.addGroupMsg(this.newMessage);
       this.newMessage = '';
     }
   }
@@ -26,7 +26,7 @@ export class GroupFooterComponent implements OnInit {
   sendImage(event) {
     this.picMessage = event.target.files;
     if (this.picMessage.item(0)) {
-      this.msgService.addPicMsg(this.picMessage.item(0));
+      this.msgService.addGroupPicMsg(this.picMessage.item(0));
     }
   }
 
