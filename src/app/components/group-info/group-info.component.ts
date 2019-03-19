@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupsService } from '../../services/groups.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-group-info',
@@ -7,9 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupInfoComponent implements OnInit {
 
-  constructor() { }
+  currentUser: string;
+  currentGroup;
+  members = [];
+  loadingSpinner = false;
+
+  constructor(private groupsService: GroupsService,
+              private auth: AuthService) { }
 
   ngOnInit() {
+    this.currentUser = this.auth.currentUserDetails().email;
+    this.loadingSpinner = true;
+    this.groupsService.getMembers().then((memberList: any) => {
+      memberList.subscribe((members) => {
+        this.members = members;
+        this.loadingSpinner = false;
+      })
+    })
   }
 
 }
