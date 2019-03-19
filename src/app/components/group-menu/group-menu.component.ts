@@ -18,6 +18,7 @@ export class GroupMenuComponent implements OnInit {
   currentGroup;
   isGroup = false;
   isOwner = false;
+  selectedFiles: FileList;
 
   constructor(private groupsService: GroupsService,
               private authService: AuthService,
@@ -58,4 +59,10 @@ export class GroupMenuComponent implements OnInit {
     });
   }
 
+  onFileInput(event) {
+    this.selectedFiles = event.target.files;
+    if (this.selectedFiles.item(0)) {
+      this.groupsService.changeGroupPic(this.selectedFiles.item(0));
+    }
+  }
 }

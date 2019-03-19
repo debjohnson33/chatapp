@@ -17,7 +17,8 @@ export class GroupsService {
   currentGroup;
 
   constructor(private afauth: AngularFireAuth,
-              private afs: AngularFirestore) { }
+              private afs: AngularFirestore,
+              private storage: AngularFireStorage) { }
 
   // Entering a group
   enterGroup(group) {
@@ -135,6 +136,31 @@ export class GroupsService {
         });
       });
     });
+  }
+
+  changeGroupPic(pic) {
+    let downloadURL;
+    const uploadTask = this.storage.upload('/groupPics/' + this.currentGroup.groupName, pic);
+    uploadTask.then((data) => {
+      downloadURL = data.downloadURL;
+      if (data.metadata.contentType.match('image/.*')) {
+        const groupCollRef = this.afs.collection('groups').ref;
+        const queryRef = groupCollRef.where('groupName', '==', this.currentGroup.groupName)
+          .where('creator', '==', this.currentGroup.creator);
+        queryRef.get().then((snapShot) => {
+          snapShot.docs[0].ref.update({
+            groupPic: downloadURL
+          });
+        });
+      } else {
+        data.ref.delete().then(() => {
+          console.log('Not an image');
+        });
+      }
+      }).catch((err) => {
+        console.log('Upload failed');
+        console.log(err);
+      });
   }
 
 
