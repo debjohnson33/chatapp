@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 // Dialog Components
 import { AddMemberComponent } from '../add-member/add-member.component';
 import { GroupInfoComponent } from '../group-info/group-info.component';
+import { RemoveMemberComponent } from '../remove-member/remove-member.component';
 
 @Component({
   selector: 'app-group-menu',
@@ -45,6 +46,13 @@ export class GroupMenuComponent implements OnInit {
 
   groupInfo() {
     this.dialogRef.open(GroupInfoComponent, {
+      height: '500px',
+      width: '400px'
+    });
+  }
+
+  removeMember() {
+    this.dialogRef.open(RemoveMemberComponent, {
       height: '500px',
       width: '400px'
     });

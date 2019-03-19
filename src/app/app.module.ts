@@ -24,6 +24,7 @@ import { MygroupsComponent } from './components/mygroups/mygroups.component';
 import { GroupMenuComponent } from './components/group-menu/group-menu.component';
 import { AddMemberComponent } from './components/add-member/add-member.component';
 import { GroupInfoComponent } from './components/group-info/group-info.component';
+import { RemoveMemberComponent } from './components/remove-member/remove-member.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -74,7 +75,8 @@ import { ScrollableDirective } from './directives/scrollable.directive';
     MygroupsComponent,
     GroupMenuComponent,
     AddMemberComponent,
-    GroupInfoComponent
+    GroupInfoComponent,
+    RemoveMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,8 @@ import { ScrollableDirective } from './directives/scrollable.directive';
   entryComponents: [
     LoadingSpinnerComponent,
     AddMemberComponent,
-    GroupInfoComponent
+    GroupInfoComponent,
+    RemoveMemberComponent
   ],
   providers: [
     AuthService,
