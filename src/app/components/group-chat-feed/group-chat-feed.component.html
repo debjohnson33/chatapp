@@ -1,3 +1,43 @@
-<p>
-  group-chat-feed works!
-</p>
+<div class="content" #scrollMe scrollable (scrollPosition)="scrollHandler($event)" *ngIf="showChat">
+  <div class="sk-folding-cube" *ngIf="loadingSpinner">
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+  </div>
+  <div id="chat">
+      <p *ngIf="allLoaded">No more messages</p>
+      <div *ngFor="let msg of messages" [ngClass]="chooseClass(msg)">
+        <!-- For Picture messages -->
+        <div class="preview" *ngIf="isPicMsg">
+          <img src="{{pictureMessage}}">
+        </div>
+        <div class="content" *ngIf="isPicMsg">
+          <h2 class="title" *ngIf="msg.sentby == MyId">
+            You sent a picture
+          </h2>
+          <h2 class="title" *ngIf="msg.sentby !== MyId">
+              {{currentChatUser.displayName}} sent a picture
+            </h2>
+            <div class="description">
+              Picture messages will be displayed in small sized previews
+            </div>
+        </div>
+
+        <!-- For text messages -->
+        <div class="content" *ngIf="!isPicMsg">
+          <div class="avatar" *ngIf="msg.sentby == MyId">
+            <img src="{{currentChatUser.photoURL}}">
+          </div>
+          <div class="avatar" *ngIf="msg.sentby !== MyId">
+            <img src="{{MyAvatar}}">
+          </div>
+          <p class="copy">{{msg.message}}</p>
+        </div>
+      </div>
+      <p class="time">{{msg.timestamp | smartDate}}</p>
+  </div>
+</div>
+<footer class="footer" * ngIf="showChat">
+  <app-group-footer></app-group-footer>
+</footer>
