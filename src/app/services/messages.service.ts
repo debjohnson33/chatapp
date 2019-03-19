@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { BehaviorSubject } from 'rxjs/';
+import { BehaviorSubject, Subject } from 'rxjs/';
 import * as firebase from 'firebase';
 
 import { GroupsService } from './groups.service';
@@ -16,6 +16,7 @@ export class MessagesService {
   currentChatUser;
   firstDocId: string;
   secondDocId: string;
+  groupMsgFlag = new Subject();
 
   constructor(private afs: AngularFirestore,
               private afauth: AngularFireAuth,
@@ -127,10 +128,31 @@ export class MessagesService {
     const queryRef = groupCollRef.where('groupName', '==', this.groupService.currentGroup.groupName)
                               .where('creator', '==', this.groupService.currentGroup.creator);
     queryRef.get().then((snapShot) => {
+      const checkforMsgs = this.afs.doc('groupconvos/' + snapShot.docs[0].data.conversationId).collection('messages').ref;
+
       this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').add({
         message: newMessage,
         timestamp: firebase.firestore.FieldValue.serverTimestamp,
         sentby: this.afauth.auth.currentUser.email
+      });
+    });
+  }
+
+  getGroupMessages(count) {
+    return new Promise((resolve) => {
+      const groupCollRef = this.afs.collection('groups').ref;
+      const queryRef = groupCollRef.where('groupName', '==', this.groupService.currentGroup.groupName)
+                                .where('creator', '==', this.groupService.currentGroup.creator);
+      queryRef.get().then((snapShot) => {
+        const checkforMsgs = this.afs.doc('groupconvos/' + snapShot.docs[0].data.conversationId).collection('messages').ref;
+        if (checkforMsgs !== undefined) {
+          resolve(this.afs.doc('groupconvos/' + snapShot.docs[0].data.conversationId).collection('messages').valueChanges());
+        } else {
+          resolve(this.groupMsgFlag);
+          setTimeout(() => {
+            this.groupMsgFlag.next('Nothing');
+          }, 1000);
+        }
       });
     });
   }
