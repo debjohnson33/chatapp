@@ -1,3 +1,18 @@
-<p>
-  remove-member works!
-</p>
+<div class="content">
+  <div class="sk-folding-cube" *ngIf="loadingSpinner">
+  <div class="sk-cube1 sk-cube"></div>
+  <div class="sk-cube2 sk-cube"></div>
+  <div class="sk-cube4 sk-cube"></div>
+  <div class="sk-cube3 sk-cube"></div>
+  </div>
+  
+<mat-list>
+  <mat-list-item *ngFor="let user of members; let i = index">
+    <img matListAvatar src="{{user.photoURL}}">
+    <h3 matLine> {{user.displayName}} </h3>
+    <button mat-icon-button (click)="removeFriend(user)" *ngIf="user.email != currentUser">
+        <mat-icon color="warn">delete</mat-icon>
+     </button>
+  </mat-list-item>
+</mat-list>
+</div>

@@ -109,5 +109,33 @@ export class GroupsService {
     });
   }
 
+  // Remove a member
+  removeMember(user) {
+    return new Promise((resolve) => {
+      const groupCollRef = this.afs.collection('groups').ref;
+      const queryRef = groupCollRef.where('groupName', '==', this.currentGroup.groupName).where('creator', '==', this.currentGroup.creator);
+      queryRef.get().then((snapShot) => {
+        const memberCollref = this.afs.doc('groups/' + snapShot.docs[0].id).collection('members').ref;
+        const query = memberCollref.where('email', '==', user.email);
+        query.get().then((snap) => {
+          snap.docs[0].ref.delete().then(() => {
+            const memberofCollRef = this.afs.collection('memberof').ref;
+            const mbrquery = memberofCollRef.where('email', '==', user.email);
+            mbrquery.get().then((snapShot1) => {
+              const groubsubCollRef = this.afs.doc('memberof/' + snapShot1.docs[0].id).collection('groups').ref;
+              const grpquery = groubsubCollRef.where('groupName', '==', this.currentGroup.groupName)
+                .where('creator', '==', this.currentGroup.creator);
+              grpquery.get().then((snapShot2) => {
+                snapShot2.docs[0].ref.delete().then(() => {
+                  resolve();
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+  }
+
 
 }
