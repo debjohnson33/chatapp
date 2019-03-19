@@ -1,0 +1,18 @@
+<div class="content">
+  <div class="sk-folding-cube" *ngIf="loadingSpinner">
+  <div class="sk-cube1 sk-cube"></div>
+  <div class="sk-cube2 sk-cube"></div>
+  <div class="sk-cube4 sk-cube"></div>
+  <div class="sk-cube3 sk-cube"></div>
+  </div>
+  
+<mat-list>
+  <mat-list-item *ngFor="let user of members; let i = index">
+    <img matListAvatar src="{{user.photoURL}}">
+    <h3 matLine> {{user.displayName}} </h3>
+    <p matLine *ngIf="user.email == currentGroup.creator">
+      Owner
+    </p>
+  </mat-list-item>
+</mat-list>
+</div>
