@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { BehaviorSubject, Subject } from 'rxjs/';
+import { BehaviorSubject, Subject, combineLatest } from 'rxjs';
 import * as firebase from 'firebase';
 
 @Injectable({
@@ -63,7 +63,20 @@ export class GroupsService {
   }
 
   getGroups() {
-    return this.afs.collection('groups', ref => ref.where('creator', '==', this.afauth.auth.currentUser.email)).valueChanges();
+    return new Promise((resolve) => {
+      const createdGroupObs = this.afs.collection('groups', ref => ref
+        .where('creator', '==', this.afauth.auth.currentUser.email)).valueChanges();
+      const memberofCollRef = this.afs.collection('memberof').ref;
+      const queryRef = memberofCollRef.where('email', '==', this.afauth.auth.currentUser.email);
+      queryRef.get().then((snapShot) => {
+        if (!snapShot.empty) {
+          const memberofObs = this.afs.doc('memberof/' + snapShot.docs[0].id).collection('members').valueChanges();
+          resolve(createdGroupObs.combineLatest(memberofObs, (x, y) => x.concat(y)));
+        } else {
+          resolve(createdGroupObs);
+        }
+      });
+    });
   }
 
   // Add members to group
