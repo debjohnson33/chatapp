@@ -3,6 +3,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestoreDocument, AngularFirestore } from 'angularfire2/firestore';
 import { Router } from '@angular/router';
 import { constants } from '../constants';
+import { MessagesService } from '../services/messages.service';
+import { GroupsService } from '../services/groups.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,9 @@ export class AuthService {
   private authState: any;
 
   constructor(private afauth: AngularFireAuth, private afs: AngularFirestore,
-              private router: Router) {
+              private router: Router,
+              private groupsService: GroupsService,
+              private messageService: MessagesService) {
               this.afauth.authState.subscribe((user) => {
                 this.authState = user;
               });
@@ -86,6 +90,8 @@ export class AuthService {
   logout() {
     this.afauth.auth.signOut().then(() => {
       this.setUserStatus('offline');
+      this.messageService.enterChat('closed');
+      this.groupsService.enterGroup('closed');
       this.router.navigate(['login']);
     })
     .catch((err) => {
