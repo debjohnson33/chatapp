@@ -39,6 +39,10 @@ export class ChatFeedComponent implements OnInit {
   isPicMsg = false;
   pictureMessage;
 
+  // Listeners
+  newMsgListener;
+  scrolledmsgListener;
+
   ngOnInit() {
     this.messagesService.enteredChat.subscribe((value) => {
       this.showChat = value;
@@ -63,7 +67,10 @@ export class ChatFeedComponent implements OnInit {
         this.allLoaded = false;
         console.log('Nothing to Show');
       } else {
-        messageObs.subscribe((messages) => {
+        if (this.newMsgListener !== undefined) {
+          this.newMsgListener.unsubscribe();
+        }
+        this.newMsgListener = messageObs.subscribe((messages) => {
           this.loadingSpinner = false;
           this.trackMsgCount = 0;
           this.shouldLoad = true;
