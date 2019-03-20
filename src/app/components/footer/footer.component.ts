@@ -30,4 +30,10 @@ export class FooterComponent implements OnInit {
     }
   }
 
+  submit(e) {
+    if (e.keyCode === 13) {
+      this.addMessage();
+    }
+  }
+
 }
