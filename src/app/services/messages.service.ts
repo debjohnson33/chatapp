@@ -128,7 +128,7 @@ export class MessagesService {
     const queryRef = groupCollRef.where('groupName', '==', this.groupService.currentGroup.groupName)
                               .where('creator', '==', this.groupService.currentGroup.creator);
     queryRef.get().then((snapShot) => {
-      const checkforMsgs = this.afs.doc('groupconvos/' + snapShot.docs[0].data.conversationId).collection('messages').ref;
+      const checkforMsgs = this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').ref;
       if (checkforMsgs === undefined) {
         this.groupMsgFlag.next('firstmsg');
       }
@@ -146,9 +146,9 @@ export class MessagesService {
       const queryRef = groupCollRef.where('groupName', '==', this.groupService.currentGroup.groupName)
                                 .where('creator', '==', this.groupService.currentGroup.creator);
       queryRef.get().then((snapShot) => {
-        const checkforMsgs = this.afs.doc('groupconvos/' + snapShot.docs[0].data.conversationId).collection('messages').ref;
+        const checkforMsgs = this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').ref;
         if (checkforMsgs !== undefined) {
-          resolve(this.afs.doc('groupconvos/' + snapShot.docs[0].data.conversationId).collection('messages').valueChanges());
+          resolve(this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').valueChanges());
         } else {
           resolve(this.groupMsgFlag);
           setTimeout(() => {
