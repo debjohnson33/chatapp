@@ -11,7 +11,7 @@ app.on('ready', () => {
     })
 
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'dist/index.html'),
+        pathname: path.join(__dirname, 'dist/chatapp/index.html'),
         protocol: 'file:',
         slashes: true
     }))
