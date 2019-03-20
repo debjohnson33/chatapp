@@ -6,6 +6,7 @@ import { BehaviorSubject, Subject } from 'rxjs/';
 import * as firebase from 'firebase';
 
 import { GroupsService } from './groups.service';
+import { timestamp } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -134,7 +135,7 @@ export class MessagesService {
       }
       this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').add({
         message: newMessage,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         sentby: this.afauth.auth.currentUser.email
       });
     });
@@ -148,7 +149,8 @@ export class MessagesService {
       queryRef.get().then((snapShot) => {
         const checkforMsgs = this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').ref;
         if (checkforMsgs !== undefined) {
-          resolve(this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').valueChanges());
+          resolve(this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId)
+            .collection('messages', ref => ref.orderBy('timestamp', 'desc').limit(count)).valueChanges());
         } else {
           resolve(this.groupMsgFlag);
           setTimeout(() => {
@@ -168,7 +170,7 @@ export class MessagesService {
     uploadTask.then((data) => {
       downloadURL = 'picMsg' + data.downloadURL;
       if (data.metadata.contentType.match('image/.*')) {
-        this.addNewMsg(downloadURL);
+        this.addGroupMsg(downloadURL);
       } else {
         data.ref.delete().then(() => {
           console.log('Not an image');
