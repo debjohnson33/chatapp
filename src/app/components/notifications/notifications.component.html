@@ -1,3 +1,8 @@
-<p>
-  notifications works!
-</p>
+<mat-list *ngIf="showNotifications">
+  <mat-list-item *ngFor="let msg of myNotifications; let i = index">
+    <img matListAvatar src="{{msg.senderPic}}">
+    <h3 matLine> {{msg.senderName}}</h3> 
+    <p matLine> has sent you a message</p>
+  </mat-list-item>
+</mat-list>
+<p *ngIf="noNewNotifications">All Caught up !!</p>
