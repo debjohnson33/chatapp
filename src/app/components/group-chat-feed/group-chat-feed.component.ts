@@ -17,7 +17,8 @@ export class GroupChatFeedComponent implements OnInit {
 
   constructor(private messagesService: MessagesService,
               private authService: AuthService,
-              private dialogRef: MatDialog) { }
+              private dialogRef: MatDialog,
+              private groupsService: GroupsService) { }
 
   showChat: boolean;
   messages = [];
@@ -38,21 +39,22 @@ export class GroupChatFeedComponent implements OnInit {
   pictureMessage;
 
   ngOnInit() {
-    this.messagesService.enteredChat.subscribe((value) => {
+    this.groupsService.enteredGroup.subscribe((value: any) => {
       this.showChat = value;
       if (value) {
-        this.getMessages();
+        this.getGroupMessages();
         this.currentChatUser = this.messagesService.currentChatUser;
       }
     });
     this.MyAvatar = this.authService.currentUserDetails().photoURL;
   }
 
-  getMessages() {
+  getGroupMessages() {
     this.loadingSpinner = true;
-    this.messagesService.getAllMessages(this.count).then((messageObs: any) => {
+    this.messagesService.getGroupMessages(this.count).then((messageObs: any) => {
+      messageObs.subscribe((messages) => {
       this.checkFirst = 1;
-      if (!messageObs) {
+      if (messages === 'Nothing') {
         this.loadingSpinner = false;
         this.messages = [];
         this.count = 10;
@@ -60,21 +62,22 @@ export class GroupChatFeedComponent implements OnInit {
         this.shouldLoad = true;
         this.allLoaded = false;
         console.log('Nothing to Show');
+      } else if (messages === 'firstmsg') {
+        this.getGroupMessages();
       } else {
-        messageObs.subscribe((messages) => {
-          this.loadingSpinner = false;
-          this.trackMsgCount = 0;
-          this.shouldLoad = true;
-          this.allLoaded = false;
-          const reversed = _.reverse(messages);
-          this.messages = reversed;
-          if (this.checkFirst === 1) {
-            this.openDialog();
-            this.checkFirst += 1;
-          }
-          this.scrollDown();
-        });
+        this.loadingSpinner = false;
+        this.trackMsgCount = 0;
+        this.shouldLoad = true;
+        this.allLoaded = false;
+        const reversed = _.reverse(messages);
+        this.messages = reversed;
+        if (this.checkFirst === 1) {
+          this.openDialog();
+          this.checkFirst += 1;
+        }
+        this.scrollDown();
       }
+      });
     });
   }
 
@@ -98,7 +101,7 @@ export class GroupChatFeedComponent implements OnInit {
         this.count += 10;
         this.loadingSpinner = true;
 
-        this.messagesService.getAllMessages(this.count).then((gotMsgs: any) => {
+        this.messagesService.getGroupMessages(this.count).then((gotMsgs: any) => {
           gotMsgs.subscribe((messages) => {
             this.messages = [];
             const reversed = _.reverse(messages);
