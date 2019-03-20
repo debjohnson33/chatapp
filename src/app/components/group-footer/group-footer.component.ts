@@ -26,7 +26,7 @@ export class GroupFooterComponent implements OnInit {
   sendImage(event) {
     this.picMessage = event.target.files;
     if (this.picMessage.item(0)) {
-      this.msgService.addGroupPicMsg(this.picMessage.item(0));
+      this.msgService.addGroupPic(this.picMessage.item(0));
     }
   }
 

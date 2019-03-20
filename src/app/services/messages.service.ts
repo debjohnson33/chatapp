@@ -129,7 +129,9 @@ export class MessagesService {
                               .where('creator', '==', this.groupService.currentGroup.creator);
     queryRef.get().then((snapShot) => {
       const checkforMsgs = this.afs.doc('groupconvos/' + snapShot.docs[0].data.conversationId).collection('messages').ref;
-
+      if (checkforMsgs === undefined) {
+        this.groupMsgFlag.next('firstmsg');
+      }
       this.afs.doc('groupconvos/' + snapShot.docs[0].data().conversationId).collection('messages').add({
         message: newMessage,
         timestamp: firebase.firestore.FieldValue.serverTimestamp,
@@ -155,5 +157,26 @@ export class MessagesService {
         }
       });
     });
+  }
+
+  // Sending group pics
+  addGroupPic(pic) {
+    let downloadURL;
+    const randNo = Math.floor(Math.random() * 10000000);
+    const picName = 'picture' + 'randNo';
+    const uploadTask = this.storage.upload('/groupPicmessages/' + picName, pic);
+    uploadTask.then((data) => {
+      downloadURL = 'picMsg' + data.downloadURL;
+      if (data.metadata.contentType.match('image/.*')) {
+        this.addNewMsg(downloadURL);
+      } else {
+        data.ref.delete().then(() => {
+          console.log('Not an image');
+        });
+      }
+      }).catch((err) => {
+        console.log('Upload failed');
+        console.log(err);
+      });
   }
 }
