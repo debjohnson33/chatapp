@@ -71,7 +71,8 @@ export class GroupsService {
       queryRef.get().then((snapShot) => {
         if (!snapShot.empty) {
           const memberofObs = this.afs.doc('memberof/' + snapShot.docs[0].id).collection('members').valueChanges();
-          resolve(createdGroupObs.combineLatest(memberofObs, (x, y) => x.concat(y)));
+          const combinedObs = combineLatest(createdGroupObs, memberofObs);
+          resolve(combinedObs);
         } else {
           resolve(createdGroupObs);
         }

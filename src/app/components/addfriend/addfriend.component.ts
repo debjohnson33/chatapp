@@ -3,8 +3,8 @@ import { UserService } from '../../services/user.service';
 import { RequestsService } from '../../services/requests.service';
 import { MatSnackBar } from '@angular/material';
 import { FriendsService } from '../../services/friends.service';
-import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, Subject, combineLatest } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-addfriend',
@@ -177,8 +177,9 @@ export class AddfriendComponent implements OnInit {
     if (q !== '') {
       this.startAt.next(q);
       this.endAt.next(q + '\uf8ff');
-      Observable.combineLatest(this.startAt, this.endAt).take(1).subscribe((value) => {
-        this.userService.instantSearch(value[0], value[1]).take(1).subscribe((users) => {
+      const observerObj = combineLatest(this.startAt, this.endAt);
+      observerObj.pipe(take(1)).subscribe((value) => {
+        this.userService.instantSearch(value[0], value[1]).pipe(take(1)).subscribe((users) => {
           this.instantSearchFilter(users);
           this.users = users;
         });

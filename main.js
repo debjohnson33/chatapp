@@ -12,7 +12,7 @@ app.on('ready', () => {
 
     win.loadURL(url.format({
         pathname: path.join(__dirname, 'dist/index.html'),
-        protocol: file,
+        protocol: 'file:',
         slashes: true
     }))
 
