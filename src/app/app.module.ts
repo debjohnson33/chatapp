@@ -25,6 +25,9 @@ import { GroupMenuComponent } from './components/group-menu/group-menu.component
 import { AddMemberComponent } from './components/add-member/add-member.component';
 import { GroupInfoComponent } from './components/group-info/group-info.component';
 import { RemoveMemberComponent } from './components/remove-member/remove-member.component';
+import { GroupChatFeedComponent } from './components/group-chat-feed/group-chat-feed.component';
+import { GroupFooterComponent } from './components/group-footer/group-footer.component';
+import { NotificationsComponent } from './components/notifications/notifications.component';
 
 // Firebase & AngularFire2
 import {AngularFireModule} from 'angularfire2';
@@ -51,8 +54,6 @@ import { GroupsService } from './services/groups.service';
 import { SmartDatePipe } from './pipes/smart-date.pipe';
 import { RelativeDatePipe } from './pipes/relative-date.pipe';
 import { ScrollableDirective } from './directives/scrollable.directive';
-import { GroupChatFeedComponent } from './components/group-chat-feed/group-chat-feed.component';
-import { GroupFooterComponent } from './components/group-footer/group-footer.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { GroupFooterComponent } from './components/group-footer/group-footer.com
     GroupInfoComponent,
     RemoveMemberComponent,
     GroupChatFeedComponent,
-    GroupFooterComponent
+    GroupFooterComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

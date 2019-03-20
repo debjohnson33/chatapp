@@ -80,6 +80,7 @@ export class MessagesService {
           sentby: this.afauth.auth.currentUser.email
         }).then(() => {
           console.log('Done from else part');
+          this.addNotifications();
         });
       }
     });
@@ -180,5 +181,35 @@ export class MessagesService {
         console.log('Upload failed');
         console.log(err);
       });
+  }
+
+  // Add notifications
+  addNotifications() {
+    this.afs.collection('notifications').add({
+      receiver: this.currentChatUser.email,
+      receiverName: this.currentChatUser.displayName,
+      senderPic: this.afauth.auth.currentUser.photoURL,
+      senderName: this.afauth.auth.currentUser.displayName,
+      type: 'message',
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }
+
+  // Get my notifications
+  getMyNotifications() {
+    return this.afs.collection('notifications', ref => ref.where('receiver', '==', this.afauth.auth.currentUser.email)).valueChanges();
+  }
+
+  // Clearing notifications
+  clearNotifications() {
+    const notificationsRef = this.afs.collection('notifications').ref;
+    const queryRef = notificationsRef.where('sender', '==', this.currentChatUser.email);
+    queryRef.get().then((snapShot) => {
+      if (!snapShot.empty) {
+        snapShot.docs.forEach((element) => {
+          element.ref.delete();
+        });
+      }
+    });
   }
 }
