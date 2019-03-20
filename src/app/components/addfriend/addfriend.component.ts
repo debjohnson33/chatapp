@@ -4,6 +4,7 @@ import { RequestsService } from '../../services/requests.service';
 import { MatSnackBar } from '@angular/material';
 import { FriendsService } from '../../services/friends.service';
 import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-addfriend',
@@ -31,7 +32,7 @@ export class AddfriendComponent implements OnInit {
               private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-    this.userService.getAllUsers().subscribe((users) => {
+    this.userService.getAllUsers().subscribe((users: any) => {
       this.bkupUsers = users;
       // Friends filter
       this.friendService.getMyFriends().then((res: any) => {
@@ -42,7 +43,7 @@ export class AddfriendComponent implements OnInit {
               if (friends) {
                 this.isFriends = [];
                 let flag = 0;
-                users.map((userElement, i) => {
+                users.pipe(map((userElement: any, i) => {
                   friends.forEach((friendElement) => {
                     if (userElement.email === friendElement.email) {
                       flag += 1;
@@ -55,7 +56,7 @@ export class AddfriendComponent implements OnInit {
                     this.isFriends[i] = false;
                     flag = 0;
                   }
-                });
+                }));
               } else {
                 users.map((userElement, i) => {
                   this.isFriends[i] = false;
