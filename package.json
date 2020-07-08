@@ -28,7 +28,7 @@
     "@types/lodash": "^4.14.123",
     "angularfire2": "^5.1.1",
     "core-js": "^2.5.4",
-    "electron": "^4.1.0",
+    "electron": "^7.2.4",
     "electron-packager": "^13.1.1",
     "firebase": "^5.8.4",
     "lodash": "^4.17.13",
